@@ -1,72 +1,104 @@
 #include <stdio.h>
-#include <string.h>
 
-int main() {
-    int opcionMes, opcionDia, opcionHora;
-    char mes[15], dia[15], hora[20];
+/* ========= FUNCION PARA SELECCIONAR OPCIONES ========= */
+int seleccionarOpcion(char titulo[], char opciones[][20], int total) {
+    int opcion, i;
 
-    /* Selección del mes */
-    printf("=== SELECCION DE HORARIO ===\n\n");
-    printf("Mes:\n");
-    printf("1. Enero\n");
-    printf("2. Febrero\n");
-    printf("3. Marzo\n");
-    printf("Seleccione el mes: ");
-    scanf("%d", &opcionMes);
+    do {
+        printf("\n%s\n", titulo);
+        for (i = 0; i < total; i++) {
+            printf("%d. %s\n", i + 1, opciones[i]);
+        }
 
-    if (opcionMes == 1)
-        strcpy(mes, "Enero");
-    else if (opcionMes == 2)
-        strcpy(mes, "Febrero");
-    else if (opcionMes == 3)
-        strcpy(mes, "Marzo");
-    else
-        strcpy(mes, "Mes no valido");
+        printf("Seleccione una opcion: ");
+        scanf("%d", &opcion);
 
-    /* Selección del día */
-    printf("\nDia:\n");
-    printf("1. Lunes\n");
-    printf("2. Martes\n");
-    printf("3. Miercoles\n");
-    printf("4. Jueves\n");
-    printf("5. Viernes\n");
-    printf("Seleccione el dia: ");
-    scanf("%d", &opcionDia);
+        if (opcion < 1 || opcion > total) {
+            printf("Error: opcion no valida. Intente de nuevo.\n");
+        }
 
-    if (opcionDia == 1)
-        strcpy(dia, "Lunes");
-    else if (opcionDia == 2)
-        strcpy(dia, "Martes");
-    else if (opcionDia == 3)
-        strcpy(dia, "Miercoles");
-    else if (opcionDia == 4)
-        strcpy(dia, "Jueves");
-    else if (opcionDia == 5)
-        strcpy(dia, "Viernes");
-    else
-        strcpy(dia, "Dia no valido");
+    } while (opcion < 1 || opcion > total);
 
-    /* Selección de la hora */
-    printf("\nHora:\n");
-    printf("1. 07:00 - 09:00\n");
-    printf("2. 09:00 - 11:00\n");
-    printf("3. 11:00 - 13:00\n");
-    printf("4. 14:00 - 16:00\n");
-    printf("Seleccione la hora: ");
-    scanf("%d", &opcionHora);
+    return opcion - 1;
+}
 
-    if (opcionHora == 1)
-        strcpy(hora, "07:00 - 09:00");
-    else if (opcionHora == 2)
-        strcpy(hora, "09:00 - 11:00");
-    else if (opcionHora == 3)
-        strcpy(hora, "11:00 - 13:00");
-    else if (opcionHora == 4)
-        strcpy(hora, "14:00 - 16:00");
-    else
-        strcpy(hora, "Hora no valida");
+/* ========= FUNCION BASE PARA GENERAR HORARIO ========= */
+void generarHorario(char horas[][20], int totalHoras) {
 
-    /* Mostrar horario completo */
-    printf("\nHorario seleccionado:\n");
-    printf("%s - %s - %s\n", mes, dia, hora);
+    char meses[5][20] = {
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo"
+    };
+
+    char dias[5][20]  = {
+        "Lunes",
+        "Martes",
+        "Miercoles",
+        "Jueves",
+        "Viernes"
+    };
+
+    int mes, dia, hora;
+
+    mes  = seleccionarOpcion("Mes:", meses, 5);
+    dia  = seleccionarOpcion("Dia:", dias, 5);
+    hora = seleccionarOpcion("Hora:", horas, totalHoras);
+
+    printf("\nHORARIO SELECCIONADO:\n");
+    printf("%s - %s - %s\n", meses[mes], dias[dia], horas[hora]);
+}
+
+/* ===================== HORARIOS ===================== */
+
+void horario1() {
+    char horas[2][20] = {
+        "07:30 - 09:00",
+        "09:00 - 10:30"
+    };
+    generarHorario(horas, 2);
+}
+
+void horario2() {
+    char horas[2][20] = {
+        "10:30 - 12:00",
+        "12:00 - 13:00"
+    };
+    generarHorario(horas, 2);
+}
+
+void horario3() {
+    char horas[3][20] = {
+        "07:30 - 08:30",
+        "08:30 - 09:30",
+        "09:30 - 10:30"
+    };
+    generarHorario(horas, 3);
+}
+
+void horario4() {
+    char horas[2][20] = {
+        "08:00 - 10:00",
+        "11:00 - 13:00"
+    };
+    generarHorario(horas, 2);
+}
+
+void horario5() {
+    char horas[3][20] = {
+        "07:30 - 09:30",
+        "09:30 - 11:30",
+        "11:30 - 13:00"
+    };
+    generarHorario(horas, 3);
+}
+
+void horario6() {
+    char horas[2][20] = {
+        "08:30 - 10:00",
+        "10:00 - 11:30"
+    };
+    generarHorario(horas, 2);
 }
