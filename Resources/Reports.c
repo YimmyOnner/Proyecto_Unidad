@@ -1,56 +1,57 @@
 #include <stdio.h>
+#include <string.h>
 
-// Estructura para cursos
-struct Curso {
-    char nombre[50];
-    char horario[30];
+
+struct Report{
+    char curso[100];
+    char hora[100];
+    int asistencia;
     int total_clases;
-    int asistencias;
+
 };
+void generarReportes(struct Report reports[], int cantidad);
 
-// Prototipo
-void generarReporte(struct Curso cursos[], int cantidad);
+int main(){
 
-int main() {
+   struct Report reports[4] = {
+    {"Matematicas Discretas","08h00 - 13h00",20,28},
+    {"Programacion", "10h30 - 13h30", 20, 26},
+    {"Comunicacion", "09h30 - 11h30", 20, 29},/* data */
+    {"Algebra Lineal", "08h30 - 13h30", 20, 25}
+   };
 
-    struct Curso cursos[3] = {
-        {"Programacion en C", "08:00 - 10:00", 20, 18},
-        {"Base de Datos", "10:00 - 12:00", 20, 16},
-        {"Sistemas Operativos", "14:00 - 16:00", 20, 19}
-    };
-
-    generarReporte(cursos, 3);
-
-    return 0;
+   generarReportes(reports, 4);
+   
 }
 
-void generarReporte(struct Curso cursos[], int cantidad) {
+void generarReportes(struct Report reports[], int cantidad){
+    FILE * nomb;
+    float porcentaje= 123;
 
-    FILE *archivo;
-    int i;
-    float porcentaje;
 
-    archivo = fopen("reporte_asistencia.txt", "w");
-
-    if (archivo == NULL) {
+    nomb= fopen("Documento.csv", "w");
+    if (nomb == NULL) {
         printf("Error al crear el archivo\n");
         return;
     }
 
-    fprintf(archivo, "===== REPORTE DE ASISTENCIA =====\n\n");
+    fprintf(nomb,"==== REPORTE DE ASISTENCIA ===== \n\n");
 
-    for (i = 0; i < cantidad; i++) {
-        porcentaje = (cursos[i].asistencias * 100.0) / cursos[i].total_clases;
+    for(int i=0; i < cantidad; i++){
+    fprintf(nomb, "");
 
-        fprintf(archivo, "Curso: %s\n", cursos[i].nombre);
-        fprintf(archivo, "Horario: %s\n", cursos[i].horario);
-        fprintf(archivo, "Clases Totales: %d\n", cursos[i].total_clases);
-        fprintf(archivo, "Asistencias: %d\n", cursos[i].asistencias);
-        fprintf(archivo, "Porcentaje de Asistencia: %.2f%%\n", porcentaje);
-        fprintf(archivo, "-----------------------------\n");
+    porcentaje = (reports[i].asistencia * 100.0) / reports[i].total_clases;
+
+    fprintf(nomb,"Curso: %s\n", reports[i].curso);
+    fprintf(nomb,"Horario %s\n", reports[i].hora);
+    fprintf(nomb,"Asistencia %i\n", reports[i].asistencia);
+    fprintf(nomb,"Total de Clases %i\n", reports[i].total_clases);
+    fprintf(nomb,"Porcentaje de Asistencia %f%%\n", porcentaje);
+    fprintf(nomb,"============================================\n");
+    
     }
+    fclose(nomb);
 
-    fclose(archivo);
+    printf("\n Informcacion Introducida en el 'Documento.csv', revisar porfavor \n");
 
-    printf("Reporte generado correctamente en 'reporte_asistencia.txt'\n");
 }
