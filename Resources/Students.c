@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    // Arreglo con 10 nombres de estudiantes
     char estudiantes[10][30] = {
         "Ana Perez",
         "Juan Lopez",
