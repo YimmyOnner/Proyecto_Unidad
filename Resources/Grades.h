@@ -1,23 +1,25 @@
 #ifndef GRADES_H
 #define GRADES_H
 
-#include <stdio.h>
-
-// Estructura para representar un curso
-typedef struct {
+typedef struct
+{
     int id;
     char nombre[100];
+    int horario1;
+    int horario2;
 } Curso;
 
-typedef struct {
+typedef struct
+{
     int id;
     char nombre[100];
     Curso cursos[10];
     int numCursos;
 } Docente;
 
-void mostrarCursosDocente(Docente *docente);
 void cargarCursosDesdeCSV(Docente *docente);
 void guardarCursosEnCSV(Docente *docente);
+void mostrarCursosDocente(Docente *docente);
+void agregarCurso(Docente *docente);
 
-#endif // GRADES_H
+#endif
