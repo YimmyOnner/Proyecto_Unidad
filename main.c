@@ -5,78 +5,57 @@
 #include "asistencia.h"
 #include "reports.h"
 
-// Estructura de usuario para el login
 typedef struct {
     char username[20];
     char password[20];
-    int id;
+    int id; 
     char nombreReal[50];
 } Usuario;
 
-void ejecutarHorario(int h) {
-    switch (h) {
-        case 1: horario1(); break;
-        case 2: horario2(); break;
-        case 3: horario3(); break;
-        case 4: horario4(); break;
-        case 5: horario5(); break;
-        case 6: horario6(); break;
-    }
-}
-
 int main() {
+    // Cada docente tiene su ID único para filtrar sus cursos
     Usuario DB[3] = {
-        {"docente1", "pass1", 1, "Juan Perez"},
-        {"docente2", "pass2", 2, "Maria Garcia"},
-        {"docente3", "pass3", 3, "Carlos Lopez"}
+        {"docente1", "pass1", 101, "Juan Perez"},
+        {"docente2", "pass2", 102, "Maria Garcia"},
+        {"docente3", "pass3", 103, "Carlos Lopez"}
     };
 
-    char user_input[20], pass_input[20];
-    int autenticado = -1;
+    char u_in[20], p_in[20];
+    int auth = -1;
 
-    // --- BLOQUE DE LOGIN ---
-    printf("=== LOGIN DE DOCENTES ===\n");
-    printf("Usuario: "); scanf("%s", user_input);
-    printf("Contrasena: "); scanf("%s", pass_input);
+    printf("=== LOGIN ===\nUsuario: "); scanf("%s", u_in);
+    printf("Pass: "); scanf("%s", p_in);
 
     for (int i = 0; i < 3; i++) {
-        if (strcmp(user_input, DB[i].username) == 0 && strcmp(pass_input, DB[i].password) == 0) {
-            autenticado = i;
-            break;
+        if (strcmp(u_in, DB[i].username) == 0 && strcmp(p_in, DB[i].password) == 0) {
+            auth = i; break;
         }
     }
 
-    if (autenticado == -1) {
-        printf("\nError: Usuario o contrasena incorrectos.\n");
-        return 1;
-    }
+    if (auth == -1) { printf("Login fallido.\n"); return 1; }
 
-    // --- CARGA DE DATOS DEL DOCENTE ---
-    printf("\nBienvenido(a), %s\n", DB[autenticado].nombreReal);
-    Docente docente = {DB[autenticado].id, ""};
-    strcpy(docente.nombre, DB[autenticado].nombreReal);
+    Docente d;
+    d.id = DB[auth].id;
+    strcpy(d.nombre, DB[auth].nombreReal);
+    d.numCursos = 0;
 
-    cargarCursosDesdeCSV(&docente);
-    mostrarCursosDocente(&docente);
+    // Carga solo los cursos del ID logueado (ej: 101)
+    cargarCursosDesdeCSV(&d); 
+    mostrarCursosDocente(&d);
 
-    int curso_idx, opcionHorario;
-    printf("\nSeleccione curso (numero): ");
-    scanf("%d", &curso_idx);
-    curso_idx--; // Ajuste para el índice del arreglo
+    int c_sel, h_opt;
+    printf("\nSeleccione curso (numero): "); scanf("%d", &c_sel);
+    c_sel--;
 
-    printf("\nSeleccione horario (1 o 2): ");
-    scanf("%d", &opcionHorario);
+    printf("Horario (1 o 2): "); scanf("%d", &h_opt);
+    int h_id = (h_opt == 1) ? d.cursos[c_sel].horario1 : d.cursos[c_sel].horario2;
 
-    int h_id = (opcionHorario == 1) ? docente.cursos[curso_idx].horario1 : docente.cursos[curso_idx].horario2;
+    // Se acabó el error "undefined reference" si incluyes horarios.h y horarios.c
+    ejecutarHorario(h_id); 
+    
+    // LLAMADA CLAVE: Pasa 3 argumentos exactamente
+    registrarAsistencia(d.nombre, d.cursos[c_sel].nombre, c_sel);
 
-    // --- FLUJO DE EJECUCION ---
-
-    // 1. Muestra la selección visual (Mes/Día en pantalla según tus funciones originales)
-    ejecutarHorario(h_id);
-
-    // 2. Llama a la asistencia, la cual pedirá los datos del reporte y llamará a reports.c
-    registrarAsistencia(docente.cursos[curso_idx].nombre, curso_idx);
-
-    printf("\nProceso finalizado con exito.\n");
+    printf("\nSistema: Proceso completado.\n");
     return 0;
 }
