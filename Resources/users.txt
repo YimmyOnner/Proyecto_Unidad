@@ -1,3 +1,0 @@
-docente1:pass1:1
-docente2:pass2:2
-docente3:pass3:3
