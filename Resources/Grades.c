@@ -3,27 +3,27 @@
 #include "grades.h"
 
 void cargarCursosDesdeCSV(Docente *docente) {
-    char archivo[20];
-    sprintf(archivo, "cursos%d.csv", docente->id);
+    FILE *file = fopen("cursos.csv", "r");
+    if (!file) return;
 
-    FILE *fp = fopen(archivo, "r");
-    docente->numCursos = 0;
+    char line[100];
+    int id_doc_csv;
+    char nombre_curso[50];
+    int h1, h2;
 
-    if (!fp) {
-        printf("No se pudo abrir %s\n", archivo);
-        return;
+    while (fgets(line, sizeof(line), file)) {
+        // Suponiendo formato: ID_DOCENTE,NOMBRE_CURSO,HORARIO1,HORARIO2
+        sscanf(line, "%d,%[^,],%d,%d", &id_doc_csv, nombre_curso, &h1, &h2);
+
+        // SOLO guardamos el curso si el ID coincide con el del docente logueado
+        if (id_doc_csv == docente->id) {
+            strcpy(docente->cursos[docente->numCursos].nombre, nombre_curso);
+            docente->cursos[docente->numCursos].horario1 = h1;
+            docente->cursos[docente->numCursos].horario2 = h2;
+            docente->numCursos++;
+        }
     }
-
-    while (fscanf(fp, "%d,%99[^,],%d,%d\n",
-        &docente->cursos[docente->numCursos].id,
-        docente->cursos[docente->numCursos].nombre,
-        &docente->cursos[docente->numCursos].horario1,
-        &docente->cursos[docente->numCursos].horario2) == 4) {
-
-        docente->numCursos++;
-    }
-
-    fclose(fp);
+    fclose(file);
 }
 
 void guardarCursosEnCSV(Docente *docente) {
@@ -76,4 +76,3 @@ void agregarCurso(Docente *docente) {
     docente->numCursos++;
     guardarCursosEnCSV(docente);
 }
-
