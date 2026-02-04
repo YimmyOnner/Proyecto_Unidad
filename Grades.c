@@ -53,26 +53,3 @@ void mostrarCursosDocente(Docente *docente) {
             docente->cursos[i].horario2);
     }
 }
-
-void agregarCurso(Docente *docente) {
-    if (docente->numCursos >= 10) return;
-
-    Curso *c = &docente->cursos[docente->numCursos];
-
-    printf("ID del curso: ");
-    scanf("%d", &c->id);
-    getchar();
-
-    printf("Nombre del curso: ");
-    fgets(c->nombre, 100, stdin);
-    c->nombre[strcspn(c->nombre, "\n")] = 0;
-
-    printf("Horario 1 (1-6): ");
-    scanf("%d", &c->horario1);
-
-    printf("Horario 2 (1-6): ");
-    scanf("%d", &c->horario2);
-
-    docente->numCursos++;
-    guardarCursosEnCSV(docente);
-}
