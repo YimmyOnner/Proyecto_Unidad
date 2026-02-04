@@ -19,7 +19,7 @@ void registrarAsistencia(char docente[], char curso[], int grupo) {
 
     // BLOQUE DE ASISTENCIA ACTUALIZADO (P/A/J)
     printf("\n--- PASANDO LISTA (Docente: %s) ---\n", docente);
-    printf("Opciones: [P]resente | [A]usente | [J]ustificado\n\n");
+    printf("Opciones: [P] Presente | [A] Ausente | [J] Justificado\n\n");
 
     for (int i = 0; i < 10; i++) {
         do {
