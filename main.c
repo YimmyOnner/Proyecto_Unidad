@@ -66,14 +66,32 @@ int main() {
     d.numCursos = 0;
 
     // Carga solo los cursos del ID logueado (ej: 101)
+    // Dependiendo del ID del Docente
     cargarCursosDesdeCSV(&d); 
     mostrarCursosDocente(&d);
 
     int c_sel, h_opt;
-    printf("\nSeleccione curso (numero): "); scanf("%d", &c_sel);
-    c_sel--;
 
-    printf("Horario (1 o 2): "); scanf("%d", &h_opt);
+    // VALIDACIÓN PARA CURSOS
+    do {
+        printf("\nSeleccione curso (1 a %d): ", d.numCursos);
+        scanf("%d", &c_sel);
+        if (c_sel < 1 || c_sel > d.numCursos) {
+            printf("[!] Error: El numero %d no es valido. Intente de nuevo.\n", c_sel);
+        }
+    } while (c_sel < 1 || c_sel > d.numCursos);
+    c_sel--; // Ajuste para el índice del arreglo
+
+    // VALIDACIÓN PARA HORARIOS (Solo 1 o 2)
+    do {
+        printf("Horario (1 o 2): ");
+        scanf("%d", &h_opt);
+        if (h_opt != 1 && h_opt != 2) {
+            printf("[!] Error: Seleccion invalida. Debe ser 1 o 2 (Ingreso: %d).\n", h_opt);
+        }
+    } while (h_opt != 1 && h_opt != 2);
+
+    // Asignación de h_id basada en la opción válida
     int h_id = (h_opt == 1) ? d.cursos[c_sel].horario1 : d.cursos[c_sel].horario2;
 
     // Se acabó el error "undefined reference" si incluyes horarios.h y horarios.c
