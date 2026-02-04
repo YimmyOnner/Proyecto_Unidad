@@ -9,18 +9,34 @@ void registrarAsistencia(char docente[], char curso[], int grupo) {
         {"Coronel","Lopez","Sebastian","Mendoza","Suarez","Messi","Adrian","Vega","Leonardo","Aguirre"}
     };
 
-    char estados[10], mes[20], dia[20];
-    
-    printf("\n--- CONFIGURACION DE REPORTE ---\n");
-    printf("Ingrese Mes: "); scanf("%s", mes);
-    printf("Ingrese Dia: "); scanf("%s", dia);
+    char estados[10];
+    char mes[20], dia[20];
 
+    // Datos de la sesión
+    printf("\n--- CONFIGURACION DE FECHA ---\n");
+    printf("Mes: "); scanf("%s", mes);
+    printf("Dia: "); scanf("%s", dia);
+
+    // BLOQUE DE ASISTENCIA ACTUALIZADO (P/A/J)
     printf("\n--- PASANDO LISTA (Docente: %s) ---\n", docente);
+    printf("Opciones: [P]resente | [A]usente | [J]ustificado\n\n");
+
     for (int i = 0; i < 10; i++) {
-        printf("%s (P/A): ", estudiantes[grupo][i]);
-        scanf(" %c", &estados[i]);
+        do {
+            printf("%-15s (P/A/J): ", estudiantes[grupo][i]);
+            scanf(" %c", &estados[i]);
+            
+            // Validamos que solo ingrese una de las 3 opciones (mayúscula o minúscula)
+            if (estados[i] != 'P' && estados[i] != 'p' && 
+                estados[i] != 'A' && estados[i] != 'a' && 
+                estados[i] != 'J' && estados[i] != 'j') {
+                printf("  [!] Error: Use solo P, A o J.\n");
+            } else {
+                break; // Entrada válida
+            }
+        } while (1);
     }
 
-    // Enviamos los 6 datos al generador de reportes
+    // Enviamos al reporte final (reports.c ya está preparado para imprimir el caracter que reciba)
     escribirReporteFinal(docente, curso, mes, dia, estudiantes[grupo], estados);
 }
