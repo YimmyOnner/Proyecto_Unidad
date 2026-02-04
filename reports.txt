@@ -34,3 +34,117 @@ Elena                | P
 Miguel               | A
 ==========================================
 
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Programacion I
+FECHA:   1 de 1
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Ana                  | 1
+Juan                 | 1
+Maria                | 1
+Carlos               | 1
+Sofia                | 1
+Luis                 | 1
+Paola                | 1
+Diego                | 1
+Elena                | 1
+Miguel               | 1
+==========================================
+
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Programacion I
+FECHA:   1 de 1
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Ana                  | P
+Juan                 | A
+Maria                | A
+Carlos               | A
+Sofia                | A
+Luis                 | A
+Paola                | A
+Diego                | A
+Elena                | A
+Miguel               | A
+==========================================
+
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Programacion I
+FECHA:   1 de 1
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Ana                  | P
+Juan                 | A
+Maria                | P
+Carlos               | A
+Sofia                | P
+Luis                 | A
+Paola                | P
+Diego                | A
+Elena                | P
+Miguel               | P
+==========================================
+
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Programacion I
+FECHA:   1 de 1
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Ana                  | J
+Juan                 | A
+Maria                | P
+Carlos               | A
+Sofia                | J
+Luis                 | J
+Paola                | J
+Diego                | J
+Elena                | J
+Miguel               | J
+==========================================
+
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Programacion I
+FECHA:   1 de 1
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Ana                  | J
+Juan                 | A
+Maria                | P
+Carlos               | A
+Sofia                | P
+Luis                 | J
+Paola                | P
+Diego                | A
+Elena                | P
+Miguel               | J
+==========================================
+
+==========================================
+DOCENTE: Juan Perez
+CURSO:   Matematicas
+FECHA:   1 de 2
+------------------------------------------
+ESTUDIANTE           | ASISTENCIA
+------------------------------------------
+Jimmy                | J
+Onner                | P
+Elvis                | A
+Hernan               | A
+Torres               | J
+Soto                 | P
+Medina               | A
+Reyes                | J
+Flores               | A
+Guzman               | P
+==========================================
+
