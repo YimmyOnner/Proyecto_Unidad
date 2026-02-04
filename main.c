@@ -13,7 +13,7 @@ typedef struct {
 } Usuario;
 
 int main() {
-    // Cada docente tiene su ID único para filtrar sus cursos
+    // Base de datos de ejemplo
     Usuario DB[3] = {
         {"docente1", "pass1", 101, "Juan Perez"},
         {"docente2", "pass2", 102, "Maria Garcia"},
@@ -22,17 +22,43 @@ int main() {
 
     char u_in[20], p_in[20];
     int auth = -1;
+    int intentos = 3; // Definimos el máximo de intentos
 
-    printf("=== LOGIN ===\nUsuario: "); scanf("%s", u_in);
-    printf("Pass: "); scanf("%s", p_in);
+    printf("===== Sistema de Control de Asistencia por Curso =====\n");
 
-    for (int i = 0; i < 3; i++) {
-        if (strcmp(u_in, DB[i].username) == 0 && strcmp(p_in, DB[i].password) == 0) {
-            auth = i; break;
+    // CICLO DE LOGIN (Máximo 3 intentos)
+    for (int intento_actual = 1; intento_actual <= intentos; intento_actual++) {
+        printf("\n========== LOGIN (Intento %d de %d) =========\n", intento_actual, intentos);
+        printf("Usuario: "); 
+        scanf("%s", u_in);
+        printf("Contrasena: "); 
+        scanf("%s", p_in);
+
+        // Verificamos en la base de datos
+        for (int i = 0; i < 3; i++) {
+            if (strcmp(u_in, DB[i].username) == 0 && strcmp(p_in, DB[i].password) == 0) {
+                auth = i; 
+                break;
+            }
+        }
+
+        // Si auth ya no es -1, significa que el login fue exitoso
+        if (auth != -1) {
+            printf("\nLogin exitoso! Bienvenido(a) %s.\n", DB[auth].nombreReal);
+            break; // Salimos del ciclo de intentos
+        } else {
+            printf("Usuario o contrasena incorrectos.");
+            if (intento_actual < intentos) {
+                printf(" Te quedan %d intentos.\n", intentos - intento_actual);
+            }
         }
     }
 
-    if (auth == -1) { printf("Login fallido.\n"); return 1; }
+    // Si después del ciclo auth sigue siendo -1, cerramos el programa
+    if (auth == -1) {
+        printf("\nHa superado el numero maximo de intentos. El sistema se cerrara.\n");
+        return 1; 
+    }
 
     Docente d;
     d.id = DB[auth].id;
